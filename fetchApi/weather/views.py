@@ -16,4 +16,5 @@ def home(request):
     humidity = data["main"]["humidity"]
     feels_like = data["main"]["feels_like"]
     pressure = data["main"]["pressure"]
-    return render(request,'index.html',{'temp':temp,'city':city,'wind':wind,"description":weather,'humidity':humidity,'weather_icon':weather_icon,'feels_like':feels_like,'pressure':pressure})
+    country = data["sys"]["country"]
+    return render(request,'index.html',{'temp':temp,'city':city,'wind':wind,"description":weather,'humidity':humidity,'weather_icon':weather_icon,'feels_like':feels_like,'pressure':pressure,"country":country})
