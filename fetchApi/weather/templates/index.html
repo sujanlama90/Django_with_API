@@ -1,183 +1,224 @@
 <!doctype html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advanced Weather Dashboard</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Weather Dashboard</title>
 
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-  </head>
-  <body class="py-4">
-    <div class="container" style="max-width: 950px">
-      <!-- Navbar Header -->
-      <header class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary border-opacity-25">
-        <div class="d-flex align-items-center gap-2">
-          <i class="bi bi-cloud-sun fs-3 text-info"></i>
-          <h4 class="m-0 fw-semibold">Weather Dashboard : {{country}}</h4>
-        </div>
-        <div class="text-secondary small"><i class="bi bi-geo-alt me-1"></i><span id="current-date">Today</span></div>
-      </header>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- JavaScript -->
+  <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 
-      <!-- Search Bar -->
-      <div class="weather-card p-3 mb-4">
-        <form method="post" action="{% url 'index' %}" id="search-form" class="row g-2">
-          {% csrf_token %}
-          <div class="col">
-            <input type="text" id="city-input" name="city" class="form-control custom-input py-2 px-3" placeholder="Enter city name..." value="kathmandu" />
-          </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-search h-100 px-4"><i class="bi bi-search me-1"></i> Search</button>
-          </div>
-        </form>
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+</head>
+
+<body class="py-4">
+  <div class="container" style="max-width: 950px">
+    <!-- Navbar Header -->
+    <header
+      class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom border-secondary border-opacity-25">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-cloud-sun fs-3 text-info"></i>
+        <h4 class="m-0 fw-semibold">Weather Dashboard : {{country}}</h4>
       </div>
+      <div class="text-secondary small">
+        <i class="bi bi-geo-alt me-1"></i><span id="current-date">Today</span>
+      </div>
+    </header>
 
-      <!-- Main Live Weather Display Card -->
-      <div class="weather-card p-4 mb-4">
-        <div class="row g-4 align-items-center">
-          <!-- Left Side Primary Weather -->
-          <div class="col-md-6">
-            <div class="temp-text mb-2" id="temp">{{temp}}°C</div>
-            <h2 class="h3 fw-normal text-capitalize mb-3" id="city-name">{{city}}</h2>
-            <div class="d-flex align-items-center gap-2 mb-4"><img src="https://openweathermap.org/img/wn/{{ weather_icon }}@2x.png" alt="{{ description }}" />{{description}}</div>
-            <!-- Secondary Indicators Grid -->
-            <div class="row g-2">
-              <div class="col-6">
-                <div class="info-pill p-3 d-flex align-items-center gap-3">
-                  <i class="bi bi-wind fs-4 text-info"></i>
-                  <div>
-                    <div class="fw-bold" id="wind-speed">{{wind}} m/s</div>
-                    <div class="text-secondary extra-small">Wind Speed</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="info-pill p-3 d-flex align-items-center gap-3">
-                  <i class="bi bi-droplet-fill fs-4 text-info"></i>
-                  <div>
-                    <div class="fw-bold" id="humidity">{{humidity}}%</div>
-                    <div class="text-secondary extra-small">Humidity</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="info-pill p-3 d-flex align-items-center gap-3">
-                  <i class="bi bi-thermometer-half fs-4 text-warning"></i>
-                  <div>
-                    <div class="fw-bold" id="feels-like">{{feels_like}}°C</div>
-                    <div class="text-secondary extra-small">Feels Like</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="info-pill p-3 d-flex align-items-center gap-3">
-                  <i class="bi bi-speedometer fs-4 text-warning"></i>
-                  <div>
-                    <div class="fw-bold" id="pressure">{{pressure}} hPa</div>
-                    <div class="text-secondary extra-small">Pressure</div>
-                  </div>
+    <!-- Search Bar -->
+    <div class="weather-card p-3 mb-4">
+      <form method="post" action="{% url 'index' %}" id="search-form" class="row g-2">
+        {% csrf_token %}
+        <div class="col">
+          <input type="text" id="city-input" name="city" class="form-control custom-input py-2 px-3"
+            placeholder="Enter city name..." />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-search h-100 px-4">
+            <i class="bi bi-search me-1"></i> Search
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Main Live Weather Display Card -->
+    <div class="weather-card p-4 mb-4">
+      <div class="row g-4 align-items-center">
+        <!-- Left Side Primary Weather -->
+        <div class="col-md-6">
+          <div class="temp-text mb-2" id="temp">{{temp}}°C</div>
+          <h2 class="h3 fw-normal text-capitalize mb-3" id="city-name">
+            {{city}}
+          </h2>
+          <div class="d-flex align-items-center gap-2 mb-4">
+            <img src="https://openweathermap.org/img/wn/{{ weather_icon }}@2x.png"
+              alt="{{ description }}" />{{description}}
+          </div>
+          <!-- Secondary Indicators Grid -->
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="info-pill p-3 d-flex align-items-center gap-3">
+                <i class="bi bi-wind fs-4 text-info"></i>
+                <div>
+                  <div class="fw-bold" id="wind-speed">{{wind}} m/s</div>
+                  <div class="text-secondary extra-small">Wind Speed</div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Right Side Hero Image / Featured Visual -->
-          <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Weather Banner" class="weather-img" />
-          </div>
-        </div>
-      </div>
-      {% comment %}
-      <!-- Hourly Forecast Row -->
-      <div class="weather-card p-4 mb-4">
-        <h6 class="text-uppercase text-secondary fw-semibold mb-3">Hourly Forecast</h6>
-        <div class="hourly-scroll">
-          <div class="hourly-card">
-            <span class="small text-secondary">Now</span>
-            <i class="bi bi-cloud-rain fs-4 text-info d-block my-2"></i>
-            <span class="fw-bold">16°C</span>
-          </div>
-          <div class="hourly-card">
-            <span class="small text-secondary">12 PM</span>
-            <i class="bi bi-sun fs-4 text-warning d-block my-2"></i>
-            <span class="fw-bold">18°C</span>
-          </div>
-          <div class="hourly-card">
-            <span class="small text-secondary">3 PM</span>
-            <i class="bi bi-cloud-sun fs-4 text-warning d-block my-2"></i>
-            <span class="fw-bold">19°C</span>
-          </div>
-          <div class="hourly-card">
-            <span class="small text-secondary">6 PM</span>
-            <i class="bi bi-cloud fs-4 text-secondary d-block my-2"></i>
-            <span class="fw-bold">15°C</span>
-          </div>
-          <div class="hourly-card">
-            <span class="small text-secondary">9 PM</span>
-            <i class="bi bi-moon-stars fs-4 text-info d-block my-2"></i>
-            <span class="fw-bold">13°C</span>
-          </div>
-          <div class="hourly-card">
-            <span class="small text-secondary">12 AM</span>
-            <i class="bi bi-moon fs-4 text-info d-block my-2"></i>
-            <span class="fw-bold">12°C</span>
+            <div class="col-6">
+              <div class="info-pill p-3 d-flex align-items-center gap-3">
+                <i class="bi bi-droplet-fill fs-4 text-info"></i>
+                <div>
+                  <div class="fw-bold" id="humidity">{{humidity}}%</div>
+                  <div class="text-secondary extra-small">Humidity</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="info-pill p-3 d-flex align-items-center gap-3">
+                <i class="bi bi-thermometer-half fs-4 text-warning"></i>
+                <div>
+                  <div class="fw-bold" id="feels-like">{{feels_like}}°C</div>
+                  <div class="text-secondary extra-small">Feels Like</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="info-pill p-3 d-flex align-items-center gap-3">
+                <i class="bi bi-speedometer fs-4 text-warning"></i>
+                <div>
+                  <div class="fw-bold" id="pressure">{{pressure}} hPa</div>
+                  <div class="text-secondary extra-small">Pressure</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Right Side Hero Image / Featured Visual -->
+        <div class="col-md-6">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80"
+            alt="Weather Banner" class="weather-img" />
+        </div>
       </div>
+    </div>
+    <!-- Hourly Forecast Row -->
+    <div class="weather-card p-4 mb-4">
+      <h6 class="text-uppercase text-secondary fw-semibold mb-3">
+        Hourly Forecast
+      </h6>
+      <div class="hourly-scroll">
+        <div class="hourly-card">
+          <span class="small text-secondary">Now</span>
+          <i class="bi bi-cloud-rain fs-4 text-info d-block my-2"></i>
+          <span class="fw-bold">16°C</span>
+        </div>
+        <div class="hourly-card">
+          <span class="small text-secondary">12 PM</span>
+          <i class="bi bi-sun fs-4 text-warning d-block my-2"></i>
+          <span class="fw-bold">18°C</span>
+        </div>
+        <div class="hourly-card">
+          <span class="small text-secondary">3 PM</span>
+          <i class="bi bi-cloud-sun fs-4 text-warning d-block my-2"></i>
+          <span class="fw-bold">19°C</span>
+        </div>
+        <div class="hourly-card">
+          <span class="small text-secondary">6 PM</span>
+          <i class="bi bi-cloud fs-4 text-secondary d-block my-2"></i>
+          <span class="fw-bold">15°C</span>
+        </div>
+        <div class="hourly-card">
+          <span class="small text-secondary">9 PM</span>
+          <i class="bi bi-moon-stars fs-4 text-info d-block my-2"></i>
+          <span class="fw-bold">13°C</span>
+        </div>
+        <div class="hourly-card">
+          <span class="small text-secondary">12 AM</span>
+          <i class="bi bi-moon fs-4 text-info d-block my-2"></i>
+          <span class="fw-bold">12°C</span>
+        </div>
+      </div>
+    </div>
 
-      <!-- 5-Day Extended Forecast -->
-      <div class="weather-card p-4">
-        <h6 class="text-uppercase text-secondary fw-semibold mb-3">5-Day Forecast</h6>
-        <div class="d-flex flex-column gap-3">
-          <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-            <div style="width: 100px" class="fw-semibold">Tomorrow</div>
-            <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-sun text-warning fs-5"></i>
-              <span>Sunny</span>
-            </div>
-            <div><span class="fw-bold">20°C</span> / <span class="text-secondary">11°C</span></div>
+    <!-- 5-Day Extended Forecast -->
+    <div class="weather-card p-4">
+      <h6 class="text-uppercase text-secondary fw-semibold mb-3">
+        5-Day Forecast
+      </h6>
+      <div class="d-flex flex-column gap-3">
+        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
+          <div style="width: 100px" class="fw-semibold">Tomorrow</div>
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-sun text-warning fs-5"></i>
+            <span>Sunny</span>
           </div>
-
-          <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-            <div style="width: 100px" class="fw-semibold">Wednesday</div>
-            <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-cloud-lightning-rain text-primary fs-5"></i>
-              <span>Thunderstorm</span>
-            </div>
-            <div><span class="fw-bold">15°C</span> / <span class="text-secondary">9°C</span></div>
+          <div>
+            <span class="fw-bold">20°C</span> /
+            <span class="text-secondary">11°C</span>
           </div>
+        </div>
 
-          <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-            <div style="width: 100px" class="fw-semibold">Thursday</div>
-            <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-cloud-sun text-warning fs-5"></i>
-              <span>Partly Cloudy</span>
-            </div>
-            <div><span class="fw-bold">18°C</span> / <span class="text-secondary">10°C</span></div>
+        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
+          <div style="width: 100px" class="fw-semibold">Wednesday</div>
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-cloud-lightning-rain text-primary fs-5"></i>
+            <span>Thunderstorm</span>
           </div>
+          <div>
+            <span class="fw-bold">15°C</span> /
+            <span class="text-secondary">9°C</span>
+          </div>
+        </div>
 
-          <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-            <div style="width: 100px" class="fw-semibold">Friday</div>
-            <div class="d-flex align-items-center gap-2">
-              <i class="bi bi-cloud text-secondary fs-5"></i>
-              <span>Cloudy</span>
-            </div>
-            <div><span class="fw-bold">17°C</span> / <span class="text-secondary">12°C</span></div>
+        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
+          <div style="width: 100px" class="fw-semibold">Thursday</div>
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-cloud-sun text-warning fs-5"></i>
+            <span>Partly Cloudy</span>
+          </div>
+          <div>
+            <span class="fw-bold">18°C</span> /
+            <span class="text-secondary">10°C</span>
+          </div>
+        </div>
+
+        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
+          <div style="width: 100px" class="fw-semibold">Friday</div>
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-cloud text-secondary fs-5"></i>
+            <span>Cloudy</span>
+          </div>
+          <div>
+            <span class="fw-bold">17°C</span> /
+            <span class="text-secondary">12°C</span>
           </div>
         </div>
       </div>
     </div>
-    {% endcomment %} {% comment %}
-    <!-- JavaScript Integration Placeholder -->
-    <script src="{% static 'js/integrations.js' %}"></script>
-    {% endcomment %}
+  </div>
 
-    <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+  {% if messages %} {% for message in messages %}
+  <script>
+    alertify.set("notifier", "position", "top-right");
+    alertify.error("{{message}}");
+  </script>
+
+  {% endfor %} {% endif %}
+
+  <!-- JavaScript Integration Placeholder -->
+  <script src="{% static 'js/integrations.js' %}"></script>
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
