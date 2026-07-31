@@ -147,7 +147,7 @@ Provides a high-quality background image for the searched city.
 ---
 
 ## 📸 Screenshots
-
+![image_alt](https://github.com/sujanlama90/Django_with_API/blob/311fd536656ee55adb7a0825aa24922b18607f35/fetchApi/weather/screenshots/weather.png)
 > 
 
 ```
