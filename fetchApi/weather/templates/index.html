@@ -111,114 +111,17 @@
         </div>
       </div>
     </div>
-    <!-- Hourly Forecast Row -->
-    <div class="weather-card p-4 mb-4">
-      <h6 class="text-uppercase text-secondary fw-semibold mb-3">
-        Hourly Forecast
-      </h6>
-      <div class="hourly-scroll">
-        <div class="hourly-card">
-          <span class="small text-secondary">Now</span>
-          <i class="bi bi-cloud-rain fs-4 text-info d-block my-2"></i>
-          <span class="fw-bold">16°C</span>
-        </div>
-        <div class="hourly-card">
-          <span class="small text-secondary">12 PM</span>
-          <i class="bi bi-sun fs-4 text-warning d-block my-2"></i>
-          <span class="fw-bold">18°C</span>
-        </div>
-        <div class="hourly-card">
-          <span class="small text-secondary">3 PM</span>
-          <i class="bi bi-cloud-sun fs-4 text-warning d-block my-2"></i>
-          <span class="fw-bold">19°C</span>
-        </div>
-        <div class="hourly-card">
-          <span class="small text-secondary">6 PM</span>
-          <i class="bi bi-cloud fs-4 text-secondary d-block my-2"></i>
-          <span class="fw-bold">15°C</span>
-        </div>
-        <div class="hourly-card">
-          <span class="small text-secondary">9 PM</span>
-          <i class="bi bi-moon-stars fs-4 text-info d-block my-2"></i>
-          <span class="fw-bold">13°C</span>
-        </div>
-        <div class="hourly-card">
-          <span class="small text-secondary">12 AM</span>
-          <i class="bi bi-moon fs-4 text-info d-block my-2"></i>
-          <span class="fw-bold">12°C</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- 5-Day Extended Forecast -->
-    <div class="weather-card p-4">
-      <h6 class="text-uppercase text-secondary fw-semibold mb-3">
-        5-Day Forecast
-      </h6>
-      <div class="d-flex flex-column gap-3">
-        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-          <div style="width: 100px" class="fw-semibold">Tomorrow</div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-sun text-warning fs-5"></i>
-            <span>Sunny</span>
-          </div>
-          <div>
-            <span class="fw-bold">20°C</span> /
-            <span class="text-secondary">11°C</span>
-          </div>
-        </div>
+    {% if messages %} {% for message in messages %}
+    <script>
+      alertify.set("notifier", "position", "top-right");
+      alertify.error("{{message}}");
+    </script>
 
-        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-          <div style="width: 100px" class="fw-semibold">Wednesday</div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-cloud-lightning-rain text-primary fs-5"></i>
-            <span>Thunderstorm</span>
-          </div>
-          <div>
-            <span class="fw-bold">15°C</span> /
-            <span class="text-secondary">9°C</span>
-          </div>
-        </div>
+    {% endfor %} {% endif %}
 
-        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-          <div style="width: 100px" class="fw-semibold">Thursday</div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-cloud-sun text-warning fs-5"></i>
-            <span>Partly Cloudy</span>
-          </div>
-          <div>
-            <span class="fw-bold">18°C</span> /
-            <span class="text-secondary">10°C</span>
-          </div>
-        </div>
-
-        <div class="info-pill p-3 d-flex align-items-center justify-content-between">
-          <div style="width: 100px" class="fw-semibold">Friday</div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-cloud text-secondary fs-5"></i>
-            <span>Cloudy</span>
-          </div>
-          <div>
-            <span class="fw-bold">17°C</span> /
-            <span class="text-secondary">12°C</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% if messages %} {% for message in messages %}
-  <script>
-    alertify.set("notifier", "position", "top-right");
-    alertify.error("{{message}}");
-  </script>
-
-  {% endfor %} {% endif %}
-
-  <!-- JavaScript Integration Placeholder -->
-  <script src="{% static 'js/integrations.js' %}"></script>
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.contrib import messages
-from 
+from decouple import  config #pip install python-decouple
 import requests
 
 # Create your views here.
 def home(request):
-    API_KEY = config
+    API_KEY = config('API_KEY')
     if 'city' in request.POST:
         city = request.POST.get('city','kathmandu')
     else:
         city = 'kathmandu'
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid=546aa424c7307f3e3c5ebae20a7db814'
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}'
     param = {'units':'metric'}
     data = requests.get(url,param).json()
     try:
