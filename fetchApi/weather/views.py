@@ -6,6 +6,7 @@ import requests
 # Create your views here.
 def home(request):
     API_KEY = config('API_KEY')
+    ACCESS_KEY = config('ACCESS_KEY')
     if 'city' in request.POST:
         city = request.POST.get('city','kathmandu')
     else:
@@ -13,6 +14,10 @@ def home(request):
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}'
     param = {'units':'metric'}
     data = requests.get(url,param).json()
+    
+    image_url = f'https://api.unsplash.com/search/photos?query={city}&per_page=1&client_id={ACCESS_KEY}'
+    response = requests.get(image_url).json()
+    img = response['results'][0]['urls']['regular']
     try:
         temp = data["main"]["temp"]
         wind = data["wind"]["speed"]
@@ -22,7 +27,10 @@ def home(request):
         feels_like = data["main"]["feels_like"]
         pressure = data["main"]["pressure"]
         country = data["sys"]["country"]
-        return render(request,'index.html',{'temp':temp,'city':city,'wind':wind,"description":weather,'humidity':humidity,'weather_icon':weather_icon,'feels_like':feels_like,'pressure':pressure,"country":country})
+        return render(request,'index.html',{'temp':temp,'city':city,
+                                            'wind':wind,"description":weather,'humidity':humidity,
+                                            'weather_icon':weather_icon,'feels_like':feels_like,
+                                            'pressure':pressure,"country":country,'img':img})
     except:
         messages.error(request,"no such  city ")
         temp = 0
@@ -33,4 +41,7 @@ def home(request):
         feels_like = 0
         pressure = 0
         country = "NP"
-        return render(request,'index.html',{'temp':temp,'city':city,'wind':wind,"description":weather,'humidity':humidity,'weather_icon':weather_icon,'feels_like':feels_like,'pressure':pressure,"country":country})
+        return render(request,'index.html',{'temp':temp,'city':city,
+                                            'wind':wind,"description":weather,'humidity':humidity,
+                                            'weather_icon':weather_icon,'feels_like':feels_like,
+                                            'pressure':pressure,"country":country})
