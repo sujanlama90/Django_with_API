@@ -76,7 +76,7 @@ fetchApi/
 ## 🚀 Installation
 
 ```bash
-git clone https://github.com/sujanlama90/fetchApi.git
+git clone https://github.com/sujanlama90/Django_with_API.git
 
 cd fetchApi
 
